@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JWT Check</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f7f7f7;
+        }
+        #message {
+            text-align: center;
+            padding: 20px;
+            border-radius: 10px;
+            background-color: #fff;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            max-width: 90%;
+        }
+        .info {
+            color: #333;
+            font-size: 18px;
+            margin-bottom: 15px;
+        }
+        .instruction {
+            color: #4CAF50;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div id="message">
+        <div class="info"></div>
+        <div class="instruction"></div>
+    </div>
+
+    <script>
+        function getParameterByName(name, url = window.location.href) {
+            name = name.replace(/[\[\]]/g, '\\$&');
+            var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
+                results = regex.exec(url);
+            if (!results) return null;
+            if (!results[2]) return '';
+            return decodeURIComponent(results[2].replace(/\+/g, ' '));
+        }
+
+        const jwt = getParameterByName('jwt');
+        const infoElement = document.querySelector('#message .info');
+        const instructionElement = document.querySelector('#message .instruction');
+
+        if (jwt && jwt.length > 20) {
+            infoElement.innerHTML = 'Acceso detectado.';
+            instructionElement.innerHTML = 'Porfavor cierra la pagina y continue en la applicación.';
+        } else {
+            infoElement.innerHTML = 'Hubo un errror';
+            instructionElement.innerHTML = 'Por favor intente otra vez.';
+        }
+    </script>
+</body>
+</html>
